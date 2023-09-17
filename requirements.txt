@@ -3,3 +3,7 @@ google-api-python-client
 google-auth
 google-auth-httplib2
 google-auth-oauthlib
+dash
+dash-core-components
+dash-html-components
+dash-table
