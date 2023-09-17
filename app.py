@@ -32,7 +32,7 @@ app.layout = html.Div(
                         )
                     ]
                 )
-            ],
+            ]
         ),
     ]
 )
@@ -40,17 +40,31 @@ app.layout = html.Div(
 
 @app.callback(
     dash.dependencies.Output("datatable", "data"),
-    [dash.dependencies.Input("datatable", "data_timestamp")],
+    dash.dependencies.Input("datatable", "data_timestamp"),
+    dash.dependencies.State("datatable", "data"),
+    dash.dependencies.State("datatable", "data_previous"),
 )
-def update_data(timestamp):
-    """Update the data every 5 seconds"""
+def update_data(timestamp, current_data, previous_data):
+    """Update the data every 5 seconds and highlight edited entries"""
     if not timestamp:
         raise PreventUpdate
 
     # Load the updated data from the persistent datastore or any other source
     doc_array = DocArray.load(datastore_path)
 
-    return doc_array.get_dict()
+    # Find the edited entries and highlight them
+    if current_data and previous_data:
+        for i in range(len(current_data)):
+            for key in current_data[i]:
+                if current_data[i][key] != previous_data[i][key]:
+                    current_data[i][key] = {
+                        "props": {
+                            "style": {"font-weight": "bold", "color": "blue"}
+                        },
+                        "children": current_data[i][key],
+                    }
+
+    return current_data
 
 
 # Run the app
