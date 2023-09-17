@@ -1,5 +1,5 @@
 # stressful_memory
-Tools for physics based machine learning for predictive design of HEAs.
+Tools for physics based machine learning for predictive design of HEAs with optimal fatigue endurance limits.
 
 ## Setup instructions
 Replace 'your_database_path' in the code with the actual path to your persistent datastore.
