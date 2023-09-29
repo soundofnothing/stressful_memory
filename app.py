@@ -69,4 +69,4 @@ def update_data(timestamp, current_data, previous_data):
 
 # Run the app
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run(jupyter_mode="tab")
